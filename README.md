@@ -12,21 +12,18 @@ The Genesis Everdragons2 is a subset of 600 dragons with DAO voting power and ma
 
 #### The flow
 
-The entire set of metadata is in `input/allMetadata.json`. 
-
-A second file, `input/inputMetadata.json` is a subset of `allMetadata.json` that excludes the tokens reserved to the team, and the special tokens reserved for future giveaways.
-The order of `inputMetadata.json` is not related to the order of the NFT, but the entire file is needed to generate the final order.
+The entire set of metadata is in `input/metadata-EDV2.json`. 
 
 **Stage 1**
 
-1. Chose a future block on the Ethereum blockchain. 
+1. Chose a future block on the Polygon blockchain. 
 2. Include the selected block in the file `input/snapshot.json` and update this repo.
 3. Commit and push to GitHub.
 
 **Stage 2**
 
 1. When the block is mined, include its hash in the snapshot file
-2. Shuffle the metadata. The script will generate a file metadata.json with for the first 600 JSON files in the `output` folder
+2. Shuffle the metadata. The script will generate a file `genesisMetadata.json` with for the first 600 JSON files in the `output` folder, and a file `remainingMetadata.json`, in `input`. This file will be the base for the remaining 9401 dragons that will be mined later. 
 3. Commit and push the update to GitHub. 
 
 **Stage 3**

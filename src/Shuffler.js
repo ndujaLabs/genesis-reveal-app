@@ -66,22 +66,48 @@ class Shuffler {
     })
     await fs.writeFile(path.resolve(tmp, 'teamMetadata.json'), JSON.stringify(teamMetadata, null, 2))
     const metadata = path.resolve(tmp, 'remainingMetadataWithoutSpecials.json')
+
     await fs.writeFile(metadata, JSON.stringify(remainingMetadataWithoutSpecials, null, 2))
-    const output = path.resolve(__dirname, "../output/finalMetadata.json")
+    const output = path.resolve(__dirname, "../output/genesisMetadata.json")
     const options = {
       input: metadata,
       output,
       salt,
       firstId: 10,
       addTokenId: true,
-      limit: 600 - 9,
-      remaining: path.resolve(__dirname, '../input/notShuffledMetadata.json'),
+      limit: 600 - 9
     }
+
     const metashu = new Metashu(options)
     await metashu.shuffle()
     // pre-append teamMetadata
-    let finalMetadata = teamMetadata.concat(require(output))
-    await fs.writeFile(output, JSON.stringify(finalMetadata, null, 2))
+    let genesisMetadata = teamMetadata.concat(require(output))
+    await fs.writeFile(output, JSON.stringify(genesisMetadata, null, 2))
+
+    const names = []
+    for (let m of genesisMetadata) {
+      names.push(m.name)
+    }
+
+    const notShuffled = []
+    for (let m of allMetadata) {
+      if (!names.includes(m.name)) {
+        delete m.image
+        notShuffled.push(m)
+      }
+    }
+    await fs.writeFile(path.resolve(__dirname, '../output/remainingMetadata.json'), JSON.stringify(notShuffled, null, 2))
+
+    console.info(`
+Congrats! Metadata have been shuffled. The final data are in    
+
+  output/genesisMetadata.json
+  
+The remaining metadata — to be used for the future 9401 standard dragons — are in
+
+  output/remainingMetadata.json
+`)
+
   }
 
 }
