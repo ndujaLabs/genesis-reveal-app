@@ -48,6 +48,8 @@ class Shuffler {
     const teamMetadata = []
     const remainingMetadataWithoutSpecials = []
     for (let m of allMetadata) {
+      delete m.external_url
+      m.image = "https://img.everdragons2.com/tmp/" + m.image.split("/")[4]
       // console.log(m)
       if (teamTokens.includes(m.name)) {
         m.tokenId = teamTokens.indexOf(m.name)
@@ -70,6 +72,7 @@ class Shuffler {
       input: metadata,
       output,
       salt,
+      firstId: 10,
       addTokenId: true,
       limit: 600 - 9,
       remaining: path.resolve(__dirname, '../input/notShuffledMetadata.json'),
