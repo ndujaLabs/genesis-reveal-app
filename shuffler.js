@@ -11,16 +11,6 @@ const optionDefinitions = [
     type: Boolean
   },
   {
-    name: 'upload-metadata',
-    alias: 'u',
-    type: Boolean
-  },
-  {
-    name: 'start-from',
-    alias: 'f',
-    type: Number
-  },
-  {
     name: 'shuffle',
     alias: 's',
     type: Boolean
@@ -28,7 +18,8 @@ const optionDefinitions = [
   {
     name: 'verify',
     alias: 'v',
-    type: String
+    type: String,
+    multiple: true
   }
 ]
 
@@ -62,11 +53,8 @@ if (options.help) {
 
 Options:
   -h, --help             This help.
-  -u, --upload-metadata  Upload the metadata to S3
   -s, --shuffle          Starts the shuffle of the metadata
-  -v, --verify           Verifies that an mp4 file has a name consistent 
-                           with its hash. Ex: "... -v filepath"
-  -f, --start-from       During upload, let it start not from 0 index                            
+  -v, --verify           Verifies that a PNG file is consistent with its imageSha256 attribute
 `)
   // eslint-disable-next-line no-process-exit
   process.exit(0)

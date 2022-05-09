@@ -6,3 +6,4 @@ node_modules
 
 /db
 awsConfig.json
+/images

@@ -1,18 +1,21 @@
-# Mobland Genesis Blueprints Reveal App
+# Everdragons2 Genesis Reveal App
 
-A simple tool to shuffle the metadata of the Genesis Blueprint tokens and reveal the final tokens.
+_Forked from https://github.com/superpowerlabs/genesis-blueprints-reveal-app_
+
+A simple tool to shuffle the metadata of the Everdragons2 Genesis tokens and reveal the final ones.
 
 ### Introduction
 
-8000 Limited Edition Blueprints have been deployed to BSC on November 30th (https://bscscan.com/tx/0x4149f9c7cbc51cd62c5834ee15754de8794973181c9f334dfeaa04ead1d037ef), with a single attribute `Status: Unrevealed`.
+Everdragons2 is a collection of 10,001 dragons randomly generated from hundreds of assets. They inherit the legacy of Everdragons, minted in 2018 as the first bridgeable cross-chain non-fungible token (NFT) for gaming. 
 
-This repo manages the process necessary to reveal the attributes and rarity of any NFT in the collection.
-
-This app will manage the reveal process.
+The Genesis Everdragons2 is a subset of 600 dragons with DAO voting power and many other extra features. They are also the first 600 Everdragons2 to be mined.
 
 #### The flow
 
-The entire set of metadata is in `input/allMetadata.json`. Its order is not related to the order of the NFT, the file is needed to generate the final order.
+The entire set of metadata is in `input/allMetadata.json`. 
+
+A second file, `input/inputMetadata.json` is a subset of `allMetadata.json` that excludes the tokens reserved to the team, and the special tokens reserved for future giveaways.
+The order of `inputMetadata.json` is not related to the order of the NFT, but the entire file is needed to generate the final order.
 
 **Stage 1**
 
@@ -23,19 +26,20 @@ The entire set of metadata is in `input/allMetadata.json`. Its order is not rela
 **Stage 2**
 
 1. When the block is mined, include its hash in the snapshot file
-2. Shuffle the metadata. The script will generate 8000 JSON files in the `output` folder
+2. Shuffle the metadata. The script will generate a file metadata.json with for the first 600 JSON files in the `output` folder
 3. Commit and push the update to GitHub. 
 
 **Stage 3**
 1. Upload all the metadata to S3. 
-2. Update the token URI of the NFT.
+2. Deploy EVD2 (i.e., E2GT Version 2).
+3. Airdrop the tokens to the owners.
+4. Burn the tokens in the V1 contract.
 
-When the process is complete, you will be able to see all the metadata on any marketplace that updates the data. Also, we will publish a special app to show all the tokens by attributes.
-
+Notice that immediately after the shuffle, the images are not available, but they have been hashed with SHA256 and later it is possible to verify that the image is the one that was supposed to be. When the images will be uploaded to Arweave, the metadata will be updated with the url of the images, and split in 600 JSON files that will be uploaded to Arweave as well.
 
 ### A future block
 
-The chosen block is [14457200](https://etherscan.io/block/14457200). It should be minted around 12pm PST, on Friday, March 25th 2022. 
+The chosen block is [TBD](https://etherscan.io/block/TBD). It should be minted around TBD
 
 When the block is mined this repo will be updated and ready to shuffle the metadata.
 
@@ -52,37 +56,20 @@ When the hash is updated in `input/snapshot.json`, run
 ./shuffler.js --shuffle
 ```
 
-It will generate 8000 metadata json files in https://github.com/superpowerlabs/genesis-blueprints-reveal-app/tree/main/output
+It will generate a JSON file with 600 metadata.
 
 Anyone can run it again to confirm that the repo is unchanged and the shuffling is fair.
 
-As soon as the metadata are shuffled, push the metadata to S3 with and later update the tokenURI in the NFT at https://bscscan.com/token/0x1ec94be5c72cf0e0524d6ecb6e7bd0ba1700bf70#writeContract
+### Validate an image
 
-#### 8000 results Vs 8888 items
-
-The Blueprint Limited Editions NFT has a total supply of 8000 tokens. However, the total amount of blueprints is 8888, as you can check in `input/allMetadata.json`. After the shuffling process, the first 8000 will be assigned to the Blueprint Limited Edition, the remaining 888 metadata, will be set in a file `input/notShuffledMetadata.json` generated during the shuffle process. Those data will be used in the future, when the blueprints will be swapped for in-game characters. 
-
-### Validate a video
-
-The name of the videos is generated taking the first 16 chars of the SHA256 of the file, to guarantee that the files in the metadata are not changed arbitrarily after the shuffle.
-
-To validate an MP4 file, download it and launch a command like
+The image of any dragon has been hashed with SHA256. After than the images will be updated to Arweave, anyone can verify that the image is the one that was supposed to be. Any metadata file has the attribute `imageSha256`. To verify it, download the image, for example, `Sooloth.png` which has the hash `3416c69d047fe6287a74046c3959b5768fe53917b1fb2ca05599d75e13dc4cdc` and launch:
 ``` 
-./shuffle --verify 0d1b201da0e53aee.mp4
+./shuffler.js --verify Soolhoth.png 3416c69d047fe6287a74046c3959b5768fe53917b1fb2ca05599d75e13dc4cdc
 ```
-
-All the images, are single frames extracted from the videos, since the videos are not unique. To validate any of them, run, for example:
-``` 
-./shuffle --verify 89ed87ac7676ff35.png
-```
-
 
 ### Credits
 
-Author: [Francesco Sullo](https://github.com/sullof)
-
-(c) 2022 Superpower Labs Inc.
+Author: [Francesco Sullo](https://github.com/sullof)~~~~~~~~
 
 ### License
 MIT
-# genesis-blueprints-reveal-app
