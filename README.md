@@ -40,6 +40,8 @@ The chosen block is [28204804](https://polygonscan.com/block/countdown/28204804)
 
 When the block is mined this repo will be updated and ready to shuffle the metadata.
 
+If you are part of the team, or a winner of Goldmine, ARG, etc. to check which are the tokenIDs of your NFTs, search you address in `src/whitelist.json`.
+
 ### Shuffle the data
 
 First off, install the dependencies
@@ -66,7 +68,7 @@ The image of any dragon has been hashed with SHA256. After than the images will 
 
 ### Credits
 
-Author: [Francesco Sullo](https://github.com/sullof)~~~~~~~~
+Author: [Francesco Sullo](https://github.com/sullof)
 
 ### License
 MIT
