@@ -36,7 +36,7 @@ Notice that immediately after the shuffle, the images are not available, but the
 
 ### A future block
 
-The chosen block is [28204804](https://polygonscan.com/block/countdown/28204804) on the Polygon PoS blockchain. The estimated target date is Wednesday, May 11, 2022, at 12:03:35 GMT-0700 (PDT).
+The chosen block is [28204804](https://polygonscan.com/block/28204804) on the Polygon PoS blockchain. The estimated target date is Wednesday, May 11, 2022, at 12:03:35 GMT-0700 (PDT).
 
 When the block is mined this repo will be updated and ready to shuffle the metadata.
 
